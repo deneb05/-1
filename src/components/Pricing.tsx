@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { fadeUp, stagger } from "@/lib/motion";
+import { fadeSlide, fadeUp, stagger } from "@/lib/motion";
 
 const models = [
   {
@@ -55,7 +55,7 @@ export function Pricing() {
           {models.map((item) => (
             <motion.li
               key={item.name}
-              variants={fadeUp}
+              variants={fadeSlide}
               className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.06] p-6 shadow-glass backdrop-blur-xl transition hover:border-white/15 hover:bg-white/[0.09]"
             >
               <div
@@ -71,7 +71,7 @@ export function Pricing() {
                   height={200}
                   loading="lazy"
                   decoding="async"
-                  className="mb-4 block h-auto w-full max-w-full rounded-2xl border border-white/5 object-contain opacity-95"
+                  className="pricing-card-img mb-4 block h-auto w-full max-w-full rounded-2xl border border-white/5"
                 />
                 <p className="text-sm font-medium text-accent-muted">
                   Pro Max

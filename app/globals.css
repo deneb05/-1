@@ -17,3 +17,23 @@ body {
 ::selection {
   @apply bg-white/20 text-white;
 }
+
+/* iOS Safari: стабильная геометрия SVG-img, без обнуления высоты */
+.hero-illustration {
+  aspect-ratio: 1200 / 520;
+  max-height: 13rem;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+@media (min-width: 768px) {
+  .hero-illustration {
+    max-height: 17rem;
+  }
+}
+
+.pricing-card-img {
+  aspect-ratio: 480 / 200;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}

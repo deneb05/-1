@@ -15,3 +15,12 @@ export const stagger: Variants = {
     transition: { staggerChildren: 0.1, delayChildren: 0.05 },
   },
 };
+
+/** Без opacity: на iOS Safari картинки внутри блока с opacity:0 иногда не дорисовываются после анимации */
+export const fadeSlide: Variants = {
+  hidden: { y: 20 },
+  visible: {
+    y: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  },
+};

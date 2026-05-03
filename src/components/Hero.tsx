@@ -17,13 +17,8 @@ export function Hero() {
         aria-hidden
       />
       <div className="mx-auto w-full max-w-4xl text-center">
-        <motion.div
-          className="mb-10 flex justify-center"
-          initial="hidden"
-          animate="visible"
-          variants={fadeUp}
-        >
-          {/* Нативный img: стабильнее SVG на iOS Safari, чем next/image */}
+        {/* Без motion + без opacity-анимации — иначе WebKit может не показать img после hydrate */}
+        <div className="mb-10 flex min-h-0 justify-center px-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/seo/hero-dagestan-ogni.svg"
@@ -32,9 +27,10 @@ export function Hero() {
             height={520}
             decoding="async"
             fetchPriority="high"
-            className="mx-auto block h-auto max-h-[min(44vw,13rem)] w-full max-w-3xl rounded-3xl border border-white/10 object-contain shadow-glass md:max-h-[min(52vw,13rem)]"
+            sizes="(max-width: 768px) 100vw, 48rem"
+            className="hero-illustration mx-auto block h-auto w-full max-w-3xl rounded-3xl border border-white/10 shadow-glass"
           />
-        </motion.div>
+        </div>
         <motion.p
           className="mb-4 text-sm font-medium uppercase tracking-[0.2em] text-accent-muted"
           initial="hidden"
