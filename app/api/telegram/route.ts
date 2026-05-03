@@ -8,11 +8,21 @@ function escapeHtml(s: string): string {
     .replace(/>/g, "&gt;");
 }
 
-export async function POST(request: Request) {
-  const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
+/** Telegram принимает chat_id числом или строкой; группы — отрицательные id вида -100… */
+function normalizeTelegramChatId(raw: string): string | number {
+  const s = raw.trim();
+  if (/^-?\d+$/.test(s)) {
+    const n = Number(s);
+    if (Number.isSafeInteger(n)) return n;
+  }
+  return s;
+}
 
-  if (!token || !chatId) {
+export async function POST(request: Request) {
+  const token = process.env.TELEGRAM_BOT_TOKEN?.trim();
+  const chatIdRaw = process.env.TELEGRAM_CHAT_ID?.trim();
+
+  if (!token || !chatIdRaw) {
     return NextResponse.json(
       { error: "Сервер не настроен: задайте TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID" },
       { status: 503 },
@@ -38,7 +48,7 @@ export async function POST(request: Request) {
     );
   }
 
-  if (model.length > 120 || condition.length > 220) {
+  if (model.length > 200 || condition.length > 280) {
     return NextResponse.json({ error: "Слишком длинный текст" }, { status: 400 });
   }
 
@@ -58,6 +68,8 @@ export async function POST(request: Request) {
     `<b>Телефон:</b> ${escapeHtml(phone)}`,
   ].join("\n");
 
+  const chatId = normalizeTelegramChatId(chatIdRaw);
+
   const tgUrl = `https://api.telegram.org/bot${token}/sendMessage`;
   const tgRes = await fetch(tgUrl, {
     method: "POST",
@@ -73,13 +85,20 @@ export async function POST(request: Request) {
   const tgData = await tgRes.json().catch(() => null);
 
   if (!tgRes.ok) {
-    const desc =
+    const apiDesc =
       tgData &&
       typeof tgData === "object" &&
       "description" in tgData &&
       typeof (tgData as { description?: string }).description === "string"
         ? (tgData as { description: string }).description
         : "Ошибка Telegram";
+
+    let desc = apiDesc;
+    if (/chat not found/i.test(apiDesc)) {
+      desc =
+        "Telegram: чат не найден. Откройте бота в Telegram и нажмите «Запустить» (/start). Для группы: добавьте бота в группу и укажите id группы (часто начинается с -100).";
+    }
+
     return NextResponse.json({ error: desc }, { status: 502 });
   }
 

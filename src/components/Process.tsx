@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { Banknote, CalendarCheck, Sparkles } from "lucide-react";
 import { fadeUp, stagger } from "@/lib/motion";
-
 const steps = [
   {
     icon: Sparkles,
@@ -13,7 +12,7 @@ const steps = [
   {
     icon: CalendarCheck,
     title: "Встреча",
-    text: "Удобное место и время: проверяем iPhone за несколько минут",
+    text: "Удобное место и время — проверяем iPhone за несколько минут",
   },
   {
     icon: Banknote,
@@ -34,10 +33,11 @@ export function Process() {
           variants={fadeUp}
         >
           <h2 className="text-3xl font-semibold tracking-tight text-accent md:text-4xl">
-            Как это работает
+            Как мы выкупаем iPhone
           </h2>
           <p className="mt-3 text-accent-muted md:text-lg">
-            Три простых шага без лишней бюрократии
+            Три шага: от заявки до денег — без лишней бюрократии, встреча там, где
+            удобно
           </p>
         </motion.div>
         <motion.ol

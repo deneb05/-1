@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { fadeUp } from "@/lib/motion";
+import { CITY_LOCATIVE } from "@/lib/site";
 
 export function Hero() {
   const scrollToPricing = () => {
@@ -16,13 +17,32 @@ export function Hero() {
         aria-hidden
       />
       <div className="mx-auto w-full max-w-4xl text-center">
+        <motion.div
+          className="mb-10 flex justify-center"
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+        >
+          {/* Нативный img: стабильнее SVG на iOS Safari, чем next/image */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/seo/hero-dagestan-ogni.svg"
+            alt="Выкуп iPhone 15 Pro Max и других моделей Apple в Дагестанских Огнях — скупка техники и быстрая оценка"
+            width={1200}
+            height={520}
+            decoding="async"
+            fetchPriority="high"
+            className="mx-auto block h-auto max-h-[min(44vw,13rem)] w-full max-w-3xl rounded-3xl border border-white/10 object-contain shadow-glass md:max-h-[min(52vw,13rem)]"
+          />
+        </motion.div>
         <motion.p
           className="mb-4 text-sm font-medium uppercase tracking-[0.2em] text-accent-muted"
           initial="hidden"
           animate="visible"
           variants={fadeUp}
+          transition={{ delay: 0.06 }}
         >
-          Скупка Apple
+          Скупка Apple в {CITY_LOCATIVE}
         </motion.p>
         <motion.h1
           className="text-[clamp(2rem,6vw,3.75rem)] font-semibold leading-[1.08] tracking-tight text-accent"
@@ -31,7 +51,7 @@ export function Hero() {
           variants={fadeUp}
           transition={{ delay: 0.08 }}
         >
-          Выкупим ваш iPhone за 15 минут
+          Выкупим ваш iPhone за 15 минут в Дагестанских Огнях
         </motion.h1>
         <motion.p
           className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-accent-muted md:text-xl"
@@ -40,7 +60,8 @@ export function Hero() {
           variants={fadeUp}
           transition={{ delay: 0.16 }}
         >
-          Платим до 95% от рыночной стоимости. Деньги сразу на руки или карту
+          Платим до 95% от рыночной стоимости в {CITY_LOCATIVE}. Деньги сразу на
+          руки или карту
         </motion.p>
         <motion.div
           className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"

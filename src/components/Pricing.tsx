@@ -38,10 +38,11 @@ export function Pricing() {
           variants={fadeUp}
         >
           <h2 className="text-3xl font-semibold tracking-tight text-accent md:text-4xl">
-            Ориентиры по выкупу
+            Скупка Apple и ориентиры по выкупу iPhone
           </h2>
           <p className="mt-3 text-accent-muted md:text-lg">
-            Финальную сумму озвучим после осмотра устройства
+            Финальную сумму озвучим после осмотра устройства — выезд по городу и
+            удобная встреча
           </p>
         </motion.div>
         <motion.ul
@@ -62,6 +63,16 @@ export function Pricing() {
                 aria-hidden
               />
               <div className="relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/seo/iphone-card-dagestan.svg"
+                  alt={`Выкуп ${item.name} — скупка Apple с быстрой оценкой`}
+                  width={480}
+                  height={200}
+                  loading="lazy"
+                  decoding="async"
+                  className="mb-4 block h-auto w-full max-w-full rounded-2xl border border-white/5 object-contain opacity-95"
+                />
                 <p className="text-sm font-medium text-accent-muted">
                   Pro Max
                 </p>
